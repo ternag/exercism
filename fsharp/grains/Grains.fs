@@ -6,8 +6,11 @@ let square n =
     | _ -> Error "Invalid input"
 
 let total: Result<uint64,string>= 
-    let c = seq {1..64}
-    let t = c |> Seq.map square |> Seq.sumBy (fun (Ok r) -> r) |> uint64
+    let processResult = fun result -> 
+        match result with 
+        | Ok n -> n 
+        | Error _ -> 0UL
+    let t = seq {1..64} |> Seq.map square |> Seq.sumBy processResult |> uint64
     Ok t 
 
 // Valid alternative :o)
