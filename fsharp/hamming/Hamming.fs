@@ -10,3 +10,17 @@ let distance (strand1: string) (strand2: string): int option =
         |> Some
 
 
+let distance2 (a:string) (b:string): int option =
+    match a with
+    | _ when a.Length <> b.Length -> None
+    | _ when a = b -> Some 0
+    | _ -> Seq.zip a b
+        |> Seq.filter (fun (x, y) -> x <> y)
+        |> Seq.length
+        |> Some
+
+
+// let distance a b =
+//     Seq.zip a b
+//     |> Seq.filter (fun (x, y) -> x <> y)
+//     |> Seq.length
