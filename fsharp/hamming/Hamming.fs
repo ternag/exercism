@@ -1,17 +1,14 @@
 ﻿module Hamming
 open Microsoft.FSharp.Core
 
-let distance (strand1: string) (strand2: string): int option = 
-    match strand1 with
-    | _ when strand1.Length <> strand2.Length -> None
-    | _ -> Array.map2 (fun char1 char2 -> if char1 = char2 then 0 else 1) (strand1.ToCharArray()) (strand2.ToCharArray()) 
-        |> Array.sum 
-        |> Some
-
-
-let distance2 (a:string) (b:string): int option =
+let distance a b = 
     match a with
-    | _ when a.Length <> b.Length -> None
+    | _ when Seq.length a <> Seq.length b -> None
+    | _ -> Seq.map2 (fun n m -> if n = m then 0 else 1) a b |> Seq.sum |> Some
+
+let distance2 a b =
+    match a with
+    | _ when Seq.length a <> Seq.length b -> None
     | _ -> Seq.zip a b |> Seq.filter (fun (x, y) -> x <> y) |> Seq.length |> Some
 
 
