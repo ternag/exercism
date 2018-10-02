@@ -11,3 +11,6 @@ let addToListDistinct chr lst =
 let isPangram input =
     let numberOfChars = List.fold (fun acc element -> addToListDistinct element acc ) List.empty (Seq.toList input)
     numberOfChars.Length = 26
+
+
+//let isPangram (input : string) = set [ 'a'..'z' ] - set (input.ToLower()) |> Set.isEmpty
