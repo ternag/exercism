@@ -1,24 +1,25 @@
 ﻿module Raindrops
 
-let handleDefault (n:int) s = 
+type Raindrop = { 
+    divisor:int
+    tag:string 
+    }
+
+let raindrops = [
+    {divisor=3; tag="Pling"};
+    {divisor=5; tag="Plang"};
+    {divisor=7; tag="Plong"}
+    ]
+
+let handleDefault n s = 
     if(s = "")
     then n |> string
     else s
 
-let div3 n s = 
-    if (n % 3 = 0)
-    then s + "Pling"
-    else s
+let detectRaindrop raindrop number str =
+    if (number % raindrop.divisor = 0)
+    then str + raindrop.tag
+    else str
 
-let div5 n s = 
-    if (n % 5 = 0)
-    then s + "Plang"
-    else s
-
-let div7 n s = 
-    if (n % 7 = 0)
-    then s + "Plong"
-    else s
-
-let convert (number: int): string = 
-    div3 number "" |> div5 number |> div7 number |> handleDefault number
+let convert number = 
+    raindrops |> List.fold (fun acc raindrop -> detectRaindrop raindrop number acc) "" |> handleDefault number
